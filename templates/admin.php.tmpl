@@ -1,0 +1,51 @@
+<?php
+
+namespace htrxuan\__NS__;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class __PREFIX___Admin
+{
+
+    private static $instance = null;
+
+    public static function get_instance()
+    {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __construct()
+    {
+        require_once __PREFIX___PLUGIN_DIR . 'includes/class-__NS__-hub.php';
+        add_filter('hdwebmobile_hub_tabs', array($this, 'register_hub_tabs'));
+        // TODO: if this plugin has its own settings/write path, register it here, e.g.:
+        // add_action('admin_init', array($this, 'register_settings'));
+        // add_action('admin_post_XXX', array($this, 'handle_XXX'));
+    }
+
+    public function register_hub_tabs($tabs)
+    {
+        // 'order' was auto-picked as (current max + 2) by new-plugin.sh; nudge it to sit
+        // next to a related plugin's tab if you'd rather it not land at the end of the bar.
+        $tabs['__TABKEY__'] = array(
+            'label'  => __('__NAME_SHORT__', '__SLUG__'),
+            'order'  => __ORDER__,
+            'render' => array($this, 'render_page'),
+        );
+        return $tabs;
+    }
+
+    public function render_page()
+    {
+        if (!current_user_can('manage_woocommerce')) {
+            wp_die(esc_html__('You do not have permission to do this.', '__SLUG__'));
+        }
+        // TODO: replace this stub with the real intro text and settings/content.
+        esc_html_e('TODO: __NAME__ settings go here.', '__SLUG__');
+    }
+}

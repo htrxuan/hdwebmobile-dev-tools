@@ -1,0 +1,60 @@
+<?php
+/**
+ * Standalone PHP-level test suite for __NAME__.
+ * Run via:  wp eval-file test-__NS__.php   (from the WordPress root, i.e. cd to the site
+ * first -- `wp eval-file` resolves paths relative to the WP install, not this file's location)
+ *
+ * COPY THIS FILE, don't run it as-is -- replace __NS__ / __PREFIX__ with the real values and
+ * fill in real assertions. It exists to bake in two lessons learned the hard way this session:
+ *
+ *   1. `global $P, $F;` inside a function does NOT work here: this file is eval()'d by
+ *      `wp eval-file` with its own top-level variable scope, and PHP's `global` keyword only
+ *      reaches the true top-level/superglobal scope -- not "the scope this script happened to
+ *      define $P in". The counters silently stayed at their initial value and the final tally
+ *      printed "0 passed, 0 failed" even though every individual PASS/FAIL line was correct.
+ *      Fix: use $GLOBALS['...'] explicitly everywhere, both to set and to read.
+ *
+ *   2. A regex/substring check against "does this file avoid mentioning X" will false-positive
+ *      on X appearing in a comment or docblock (e.g. a docblock that explains "this never
+ *      touches $wpdb" contains the literal string "$wpdb"). Strip comments before searching
+ *      code for a forbidden pattern: `preg_replace('!/\*.*?\*\/!s', '', $source)`.
+ */
+
+namespace htrxuan\__NS__;
+
+$GLOBALS['__NS___P'] = 0;
+$GLOBALS['__NS___F'] = 0;
+
+function check($label, $cond)
+{
+    if ($cond) {
+        $GLOBALS['__NS___P']++;
+        echo "PASS: $label\n";
+    } else {
+        $GLOBALS['__NS___F']++;
+        echo "FAIL: $label\n";
+    }
+}
+
+// --- fixtures ------------------------------------------------------------
+// TODO: create whatever products / orders / users / terms this suite needs.
+
+// --- the actual test cases -------------------------------------------------
+// TODO: for a *_Repository or *_Query class (the one enforcing "closed by construction"),
+// write these cases FIRST, before or alongside the class itself, not after -- that's the one
+// concrete piece of test-driven discipline worth keeping from an external "TDD" framework
+// without adopting the whole methodology. At minimum, cover:
+//   - a malicious/malformed input is rejected or neutralised, never passed through
+//   - the ONE authorized write path actually requires the capability + nonce it claims to
+//   - reflection: the method that changes protected state has no id/role/amount-shaped
+//     parameter that a caller could use to point it at someone else's data
+//   - no unauthenticated surface: no matching wp_ajax_nopriv_*, and (if relevant)
+//     rest_get_server()->get_routes() has nothing matching this plugin's prefix
+
+check('TODO: replace with a real assertion', true);
+
+// --- cleanup ---------------------------------------------------------------
+// TODO: delete every fixture created above (products, orders, users, terms, options) so a
+// re-run starts clean and the dev site isn't left with test debris.
+
+echo "\n{$GLOBALS['__NS___P']} passed, {$GLOBALS['__NS___F']} failed\n";
