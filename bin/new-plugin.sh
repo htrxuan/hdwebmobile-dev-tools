@@ -96,18 +96,30 @@ echo "  tab key: $TABKEY   tab order: $NEW_ORDER"
 
 # --- render a template: substitute placeholders, write to destination -------
 
+# Escape sed's special replacement characters (backslash first, so the escapes just
+# inserted aren't themselves re-escaped by a later step) -- any free-text value substituted
+# into a sed replacement needs this, not just __DESC__: a display name containing "&" (e.g.
+# "HDWebmobile Foo & Bar") would otherwise have sed re-insert the matched placeholder text in
+# place of the "&", corrupting every rendered file. Found live 2026-09-13 scaffolding
+# "HDWebmobile Affiliate & Referral Program" -- see hdwebmobile_dev_tools memory.
+sed_escape() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\//\\/}"
+    s="${s//&/\\&}"
+    printf '%s' "$s"
+}
+
 render() {
     local template="$1" dest="$2"
-    # Escape sed's special replacement characters in free-text values (backslash first, so
-    # the escapes just inserted aren't themselves re-escaped by a later step).
-    local desc_escaped="$DESC"
-    desc_escaped="${desc_escaped//\\/\\\\}"
-    desc_escaped="${desc_escaped//\//\\/}"
-    desc_escaped="${desc_escaped//&/\\&}"
+    local name_escaped name_short_escaped desc_escaped
+    name_escaped="$(sed_escape "$NAME")"
+    name_short_escaped="$(sed_escape "$NAME_SHORT")"
+    desc_escaped="$(sed_escape "$DESC")"
     sed \
         -e "s/__SLUG__/${SLUG}/g" \
-        -e "s/__NAME_SHORT__/${NAME_SHORT}/g" \
-        -e "s/__NAME__/${NAME}/g" \
+        -e "s/__NAME_SHORT__/${name_short_escaped}/g" \
+        -e "s/__NAME__/${name_escaped}/g" \
         -e "s/__PREFIX__/${PREFIX}/g" \
         -e "s/__NS__/${NS}/g" \
         -e "s/__TABKEY__/${TABKEY}/g" \
