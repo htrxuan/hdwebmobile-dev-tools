@@ -84,6 +84,35 @@ hub-sync push so an unrelated uncommitted file (a marketing PNG dropped in but n
 committed, say) doesn't get silently swept into the same commit. Without `--only`, it's a
 plain `git add -A` (whatever's uncommitted, same as doing it by hand).
 
+## WP.org submission pipeline
+
+WP.org allows one plugin in review per account, so submissions run through a queue,
+`submission-queue.txt` (one `<slug> <status> [date]` per line, top = next):
+
+```
+queued -> ready -> in-review -> approved -> published
+          |          ^ you click Submit, then: submission-watch.sh --submitted <slug>
+          ^ preflight.sh passed, zip built
+```
+
+- **`bin/preflight.sh <slug>`** -- every check that has cost a review round before: slug ==
+  `sanitize_title(Plugin Name)` == Text Domain, translation-call domains, Stable tag/Version,
+  Tested up to, short-description length, no competitor/CVE wording in the readme, an
+  `== External services ==` section when the code makes remote calls, screen-scoped
+  `admin_notices`, no exists-guards around our own symbols, `wp plugin check`, Plugin URI 200,
+  git clean + pushed, and a fresh zip with no dev files. Exit 0 = ready.
+- **`bin/submission-watch.sh`** -- checks the in-review plugin; approval is detected by WP.org
+  creating `https://plugins.svn.wordpress.org/<slug>/` (404 before, 200 after). On approval it
+  runs preflight on the next queued plugin and marks it `ready`. `--status` prints the queue;
+  `--submitted <slug>` / `--published <slug>` record the human steps. Exit codes: 0 nothing new,
+  10 next is ready, 11 next failed preflight, 12 a ready plugin is waiting for you to submit.
+- **`bin/svn-first-publish.sh <slug> [--commit]`** -- first SVN release of an approved plugin:
+  checkout, copy exactly the git-tracked code into `trunk/` and the PNGs into `assets/`,
+  verify trunk matches the dev source, then stop; `--commit` commits trunk, assets and the tag.
+
+**Never automated:** clicking Submit on https://wordpress.org/plugins/developers/add/. That form
+is submitted under the owner's own WP.org account and agrees to the guidelines in their name.
+
 ## `templates/`
 
 Placeholder-substituted source used by `new-plugin.sh` (`__SLUG__`, `__NAME__`,

@@ -1,0 +1,40 @@
+# WP.org submission queue -- one plugin per line: <slug> <status> [date]
+# status: in-review | ready | queued | approved | published   (top to bottom = submission order)
+# Managed by bin/submission-watch.sh; reorder 'queued' lines by hand to change priority.
+hdwebmobile-loyalty-points-store-credit in-review 2026-10-12
+hdwebmobile-booking-appointments queued
+hdwebmobile-formula-pricing queued
+hdwebmobile-gift-cards queued
+hdwebmobile-license-key-delivery queued
+hdwebmobile-order-export queued
+hdwebmobile-otp-login queued
+hdwebmobile-photo-video-reviews queued
+hdwebmobile-product-enquiry queued
+hdwebmobile-product-file-upload queued
+hdwebmobile-request-a-quote queued
+hdwebmobile-simple-subscriptions queued
+hdwebmobile-social-login queued
+hdwebmobile-vendor-marketplace queued
+hdwebmobile-checkout-fields queued
+hdwebmobile-currency-switcher queued
+hdwebmobile-pre-orders queued
+hdwebmobile-return-refund-requests queued
+hdwebmobile-coupon-links queued
+hdwebmobile-product-filters queued
+hdwebmobile-sales-countdown queued
+hdwebmobile-secure-downloads queued
+hdwebmobile-wholesale-pricing queued
+hdwebmobile-bulk-pricing queued
+hdwebmobile-custom-order-numbers queued
+hdwebmobile-product-specifications queued
+hdwebmobile-recent-sales-notifications queued
+hdwebmobile-size-charts queued
+hdwebmobile-affiliate-program queued
+hdwebmobile-age-verification queued
+hdwebmobile-buy-now queued
+hdwebmobile-data-privacy-requests queued
+hdwebmobile-delivery-zones queued
+hdwebmobile-order-bump queued
+hdwebmobile-order-quantity-rules queued
+hdwebmobile-post-purchase-upsell queued
+hdwebmobile-product-comparison queued
