@@ -110,6 +110,13 @@ queued -> ready -> in-review -> approved -> published
   checkout, copy exactly the git-tracked code into `trunk/` and the PNGs into `assets/`,
   verify trunk matches the dev source, then stop; `--commit` commits trunk, assets and the tag.
 
+- **`bin/make-assets.py --slug <slug> --title "LINE ONE &|LINE TWO." --tagline "..." --glyph <name>`**
+  -- icon-128/256 and banner-772x250/1544x500 in the house style (green gradient, ringed disc +
+  white glyph, uppercase title with a period). Glyphs: star, coin, gift, tag, doc, check, cart,
+  clock, user, shield. Screenshots stay real captures (1600x1000 viewport; hide other plugins'
+  popups/floating bars; mask real emails with example.com before capturing). Commit images to
+  git and to SVN `assets/` -- no version bump needed.
+
 **Never automated:** clicking Submit on https://wordpress.org/plugins/developers/add/. That form
 is submitted under the owner's own WP.org account and agrees to the guidelines in their name.
 
