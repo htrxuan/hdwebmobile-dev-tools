@@ -2,7 +2,9 @@
 #
 # Drives the one-plugin-at-a-time WP.org submission pipeline from dev-tools/submission-queue.txt.
 #
-# WP.org allows only one plugin in review per account, so the pipeline is a queue:
+# WP.org allows only one plugin in review per account, AND blocks the next submission until an
+# approved plugin has actually been published to SVN ("1 approved plugin that has not yet been
+# used"), so the pipeline is a queue:
 #   queued -> ready (preflight passed, zip built) -> in-review (YOU clicked Submit)
 #          -> approved (WP.org created its SVN repo) -> published (first SVN release done)
 #
@@ -70,6 +72,8 @@ if [ -n "$REVIEW" ]; then
   set_status "$REVIEW" approved
   echo "APPROVED: $REVIEW -- WP.org created its SVN repo. First publish: dev-tools/bin/svn-first-publish.sh $REVIEW"
 elif [ -n "$READY" ]; then
+  UNPUB=$(first_with approved)
+  [ -n "$UNPUB" ] && echo "PUBLISH FIRST: $UNPUB is approved but not yet in SVN -- WP.org blocks new submissions until it is. Run: svn-first-publish.sh $UNPUB --commit, then submission-watch.sh --published $UNPUB"
   echo "WAITING FOR YOU: $READY is ready -- upload wp-org-submission-zips/$READY.zip at https://wordpress.org/plugins/developers/add/ then run: submission-watch.sh --submitted $READY"
   exit 12
 fi
@@ -82,6 +86,8 @@ echo
 if bash "$TOOLS/bin/preflight.sh" "$NEXT"; then
   set_status "$NEXT" ready
   echo
+  UNPUB=$(first_with approved)
+  [ -n "$UNPUB" ] && echo "PUBLISH FIRST: $UNPUB is approved but not yet in SVN -- WP.org blocks new submissions until it is. Run: svn-first-publish.sh $UNPUB --commit, then submission-watch.sh --published $UNPUB"
   echo "NEXT READY: $NEXT -- upload $ROOT/wp-org-submission-zips/$NEXT.zip at https://wordpress.org/plugins/developers/add/, click Submit, then run: submission-watch.sh --submitted $NEXT"
   exit 10
 fi

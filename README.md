@@ -106,7 +106,7 @@ queued -> ready -> in-review -> approved -> published
   runs preflight on the next queued plugin and marks it `ready`. `--status` prints the queue;
   `--submitted <slug>` / `--published <slug>` record the human steps. Exit codes: 0 nothing new,
   10 next is ready, 11 next failed preflight, 12 a ready plugin is waiting for you to submit.
-- **`bin/svn-first-publish.sh <slug> [--commit]`** -- first SVN release of an approved plugin:
+- **`bin/svn-first-publish.sh <slug> [--commit]`** -- first SVN release of an approved plugin (must happen BEFORE the next submission: WP.org blocks new uploads while an approved plugin is unpublished):
   checkout, copy exactly the git-tracked code into `trunk/` and the PNGs into `assets/`,
   verify trunk matches the dev source, then stop; `--commit` commits trunk, assets and the tag.
 
