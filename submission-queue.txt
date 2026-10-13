@@ -2,9 +2,9 @@
 # status: in-review | ready | queued | approved | published   (top to bottom = submission order)
 # Managed by bin/submission-watch.sh; reorder 'queued' lines by hand to change priority.
 hdwebmobile-loyalty-points-store-credit published 2026-10-13
-hdwebmobile-booking-appointments in-review 2026-10-13
-hdwebmobile-formula-pricing queued
-hdwebmobile-gift-cards queued
+hdwebmobile-booking-appointments published 2026-10-13
+hdwebmobile-formula-pricing approved 2026-10-14
+hdwebmobile-gift-cards ready 2026-10-14
 hdwebmobile-license-key-delivery queued
 hdwebmobile-order-export queued
 hdwebmobile-otp-login queued

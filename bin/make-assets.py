@@ -14,7 +14,7 @@ Screenshots are NOT generated here -- they are real wp-admin/storefront captures
 Usage:
   make-assets.py --slug hdwebmobile-foo --title "LOYALTY POINTS &|STORE CREDIT." \
       --tagline "Points customers earn and redeem. Balance computed from a ledger." --glyph star
-  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, user, shield)
+  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield)
 """
 import argparse, math, os, sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -95,6 +95,23 @@ def draw_glyph(d, name, cx, cy, r, fill=(255, 255, 255), cut=DARK):
         w = max(3, int(r * .12))
         d.line([(cx, cy), (cx, cy - r * .65)], fill=cut, width=w)
         d.line([(cx, cy), (cx + r * .45, cy + r * .2)], fill=cut, width=w)
+    elif name == 'calendar':
+        d.rounded_rectangle((cx - r * .85, cy - r * .7, cx + r * .85, cy + r * .85), radius=r * .12, fill=fill)
+        d.rectangle((cx - r * .85, cy - r * .7, cx + r * .85, cy - r * .35), fill=fill)
+        d.rectangle((cx - r * .72, cy - r * .22, cx + r * .72, cy + r * .72), fill=cut)
+        for rx in (-.45, .45):
+            d.rounded_rectangle((cx + r * rx - r * .08, cy - r * .95, cx + r * rx + r * .08, cy - r * .55), radius=r * .05, fill=fill)
+        w = max(3, int(r * .14))
+        d.line([(cx - r * .35, cy + r * .25), (cx - r * .08, cy + r * .5), (cx + r * .4, cy - r * .02)], fill=fill, width=w, joint='curve')
+    elif name == 'calculator':
+        d.rounded_rectangle((cx - r * .72, cy - r, cx + r * .72, cy + r), radius=r * .14, fill=fill)
+        d.rounded_rectangle((cx - r * .54, cy - r * .82, cx + r * .54, cy - r * .38), radius=r * .06, fill=cut)
+        k = r * .26
+        for row in range(3):
+            for col in range(3):
+                x0 = cx - r * .54 + col * (k + r * .14)
+                y0 = cy - r * .2 + row * (k + r * .1)
+                d.rounded_rectangle((x0, y0, x0 + k, y0 + k), radius=r * .05, fill=cut)
     elif name == 'user':
         d.ellipse((cx - r * .4, cy - r, cx + r * .4, cy - r * .2), fill=fill)
         d.pieslice((cx - r * .85, cy - r * .1, cx + r * .85, cy + r * 1.5), 180, 360, fill=fill)
