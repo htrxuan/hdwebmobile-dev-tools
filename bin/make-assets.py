@@ -14,7 +14,7 @@ Screenshots are NOT generated here -- they are real wp-admin/storefront captures
 Usage:
   make-assets.py --slug hdwebmobile-foo --title "LOYALTY POINTS &|STORE CREDIT." \
       --tagline "Points customers earn and redeem. Balance computed from a ledger." --glyph star
-  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield)
+  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield, key, pin, list)
 """
 import argparse, math, os, sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -115,6 +115,24 @@ def draw_glyph(d, name, cx, cy, r, fill=(255, 255, 255), cut=DARK):
     elif name == 'user':
         d.ellipse((cx - r * .4, cy - r, cx + r * .4, cy - r * .2), fill=fill)
         d.pieslice((cx - r * .85, cy - r * .1, cx + r * .85, cy + r * 1.5), 180, 360, fill=fill)
+    elif name == 'key':
+        # ring bow on the left, shaft to the right with two teeth
+        d.ellipse((cx - r, cy - r * .5, cx - r * .0, cy + r * .5), fill=fill)
+        d.ellipse((cx - r * .7, cy - r * .2, cx - r * .3, cy + r * .2), fill=cut)
+        d.rectangle((cx - r * .1, cy - r * .12, cx + r, cy + r * .12), fill=fill)
+        d.rectangle((cx + r * .55, cy + r * .1, cx + r * .72, cy + r * .45), fill=fill)
+        d.rectangle((cx + r * .8, cy + r * .1, cx + r, cy + r * .38), fill=fill)
+    elif name == 'pin':
+        # map pin: round head tapering to a point, with a hole
+        d.ellipse((cx - r * .7, cy - r, cx + r * .7, cy + r * .4), fill=fill)
+        d.polygon([(cx - r * .62, cy - r * .12), (cx + r * .62, cy - r * .12), (cx, cy + r)], fill=fill)
+        d.ellipse((cx - r * .26, cy - r * .56, cx + r * .26, cy - r * .04), fill=cut)
+    elif name == 'list':
+        # spec sheet: three rows of bullet + bar
+        for k in range(3):
+            y = cy - r * .7 + k * r * .7
+            d.ellipse((cx - r, y - r * .16, cx - r * .68, y + r * .16), fill=fill)
+            d.rounded_rectangle((cx - r * .45, y - r * .12, cx + r, y + r * .12), radius=r * .06, fill=fill)
     elif name == 'shield':
         d.polygon([(cx, cy - r), (cx + r * .8, cy - r * .65), (cx + r * .7, cy + r * .3), (cx, cy + r), (cx - r * .7, cy + r * .3), (cx - r * .8, cy - r * .65)], fill=fill)
     else:

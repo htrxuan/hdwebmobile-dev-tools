@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  WP.org banner in the current site style (matches the 772x250 banners on hdwebmobile.com).
+  Open as file://…/plugin-banner.html#<url-encoded JSON> at a 1544x500 viewport, screenshot,
+  then downscale to 772x250. JSON: {"t":"LINE ONE|LINE TWO.","s":"Tagline.","i":"<svg inner markup, lucide 24x24>"}
+-->
+<html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}
+html,body{width:1544px;height:500px;overflow:hidden}
+.b{width:772px;height:250px;transform:scale(2);transform-origin:0 0;position:relative;
+ background:radial-gradient(circle at 0% 45%,rgba(30,120,75,.3),rgba(30,120,75,0) 45%),linear-gradient(135deg,rgb(27,94,66) 0%,rgb(21,77,56) 50%,rgb(15,61,46) 100%)}
+.ring{position:absolute;left:31px;top:61px;width:128px;height:128px;border-radius:50%;border:1.5px solid rgba(247,243,233,.55)}
+.disc{position:absolute;left:43px;top:73px;width:104px;height:104px;border-radius:50%;
+ background:radial-gradient(circle at 38% 28%,rgb(44,122,84) 0%,rgb(26,92,64) 45%,rgb(17,64,46) 100%);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.disc svg{position:absolute;left:32px;top:32px;width:40px;height:40px}
+.t{position:absolute;left:206px;top:64px;font:bold 31.5px/44px Arial,Helvetica,sans-serif;color:#f7f3e9;letter-spacing:-.2px}
+.s{position:absolute;left:206px;top:163px;font:15px/1.2 Arial,Helvetica,sans-serif;color:rgba(247,243,233,.72)}
+</style></head><body><div class="b">
+<div class="ring"></div>
+<div class="disc"><svg id="i" viewBox="0 0 24 24" fill="none" stroke="#f7f3e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></div>
+<div class="t" id="t"></div><div class="s" id="s"></div>
+</div>
+<script>
+const d = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+document.getElementById('t').innerHTML = d.t.split('|').map(x => x.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))).join('<br>');
+document.getElementById('s').textContent = d.s;
+document.getElementById('i').innerHTML = d.i;
+</script></body></html>

@@ -3,11 +3,14 @@
 # Managed by bin/submission-watch.sh; reorder 'queued' lines by hand to change priority.
 hdwebmobile-loyalty-points-store-credit published 2026-10-13
 hdwebmobile-booking-appointments published 2026-10-13
-hdwebmobile-formula-pricing approved 2026-10-14
-hdwebmobile-gift-cards ready 2026-10-14
-hdwebmobile-license-key-delivery queued
-hdwebmobile-order-export queued
-hdwebmobile-otp-login queued
+hdwebmobile-formula-pricing published 2026-10-14
+hdwebmobile-gift-cards published 2026-10-15
+hdwebmobile-license-key-delivery published 2026-10-25
+hdwebmobile-order-export published 2026-10-28
+hdwebmobile-otp-login in-review 2026-10-28
+hdwebmobile-delivery-zones ready
+hdwebmobile-coupon-links ready
+hdwebmobile-product-specifications ready
 hdwebmobile-photo-video-reviews queued
 hdwebmobile-product-enquiry queued
 hdwebmobile-product-file-upload queued
@@ -19,21 +22,18 @@ hdwebmobile-checkout-fields queued
 hdwebmobile-currency-switcher queued
 hdwebmobile-pre-orders queued
 hdwebmobile-return-refund-requests queued
-hdwebmobile-coupon-links queued
 hdwebmobile-product-filters queued
 hdwebmobile-sales-countdown queued
 hdwebmobile-secure-downloads queued
 hdwebmobile-wholesale-pricing queued
 hdwebmobile-bulk-pricing queued
 hdwebmobile-custom-order-numbers queued
-hdwebmobile-product-specifications queued
 hdwebmobile-recent-sales-notifications queued
 hdwebmobile-size-charts queued
 hdwebmobile-affiliate-program queued
 hdwebmobile-age-verification queued
 hdwebmobile-buy-now queued
 hdwebmobile-data-privacy-requests queued
-hdwebmobile-delivery-zones queued
 hdwebmobile-order-bump queued
 hdwebmobile-order-quantity-rules queued
 hdwebmobile-post-purchase-upsell queued
