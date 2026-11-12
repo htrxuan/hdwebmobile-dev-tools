@@ -7,7 +7,7 @@ hdwebmobile-formula-pricing published 2026-10-14
 hdwebmobile-gift-cards published 2026-10-15
 hdwebmobile-license-key-delivery published 2026-10-25
 hdwebmobile-order-export published 2026-10-28
-hdwebmobile-otp-login in-review 2026-10-28
+hdwebmobile-otp-login published 2026-11-12
 hdwebmobile-delivery-zones ready
 hdwebmobile-coupon-links ready
 hdwebmobile-product-specifications ready
