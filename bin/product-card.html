@@ -1,0 +1,44 @@
+<!doctype html>
+<!--
+  Square product image (1200x1200) or share image (1200x630) in the hdwebmobile.com house style.
+  Open as file://…/product-card.html#<url-encoded JSON> at the matching viewport and screenshot.
+  JSON: {"w":1200,"h":1200,"name":"STORE|GUARDIAN","tier":"5 SITES","tag":"Checkout monitoring for WooCommerce","i":"<svg inner markup, lucide 24x24>","head":"optional big headline for share images"}
+-->
+<html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}
+body{overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+.c{position:relative;overflow:hidden;
+ background:radial-gradient(circle at 12% 30%,rgba(30,120,75,.35),rgba(30,120,75,0) 45%),radial-gradient(circle at 95% 105%,rgba(22,163,74,.28),rgba(22,163,74,0) 40%),linear-gradient(135deg,rgb(27,94,66) 0%,rgb(21,77,56) 50%,rgb(15,61,46) 100%)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(247,243,233,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(247,243,233,.05) 1px,transparent 1px);background-size:60px 60px}
+.badge{position:absolute;border-radius:50%;border:3px solid rgba(247,243,233,.5)}
+.disc{position:absolute;border-radius:50%;background:radial-gradient(circle at 38% 28%,rgb(44,122,84) 0%,rgb(26,92,64) 45%,rgb(17,64,46) 100%);box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.disc svg{position:absolute;inset:24%;width:52%;height:52%}
+.name{position:absolute;color:#f7f3e9;font-weight:bold;letter-spacing:-1px}
+.tier{position:absolute;display:inline-block;background:#16A34A;color:#fff;font-weight:bold;letter-spacing:2px;border-radius:999px}
+.tag{position:absolute;color:rgba(247,243,233,.75)}
+.brand{position:absolute;color:rgba(247,243,233,.6);letter-spacing:3px;font-weight:bold}
+.head{position:absolute;color:#f7f3e9;font-weight:bold;letter-spacing:-1px}
+</style></head><body><div class="c" id="c"><div class="grid"></div></div>
+<script>
+const d = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+const W = d.w || 1200, H = d.h || 1200, c = document.getElementById('c');
+c.style.width = W + 'px'; c.style.height = H + 'px';
+const esc = s => String(s).replace(/[&<>]/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[x]));
+const add = (cls, css, html) => { const e = document.createElement('div'); e.className = cls; Object.assign(e.style, css); if (html !== undefined) e.innerHTML = html; c.appendChild(e); return e; };
+const square = H >= W * 0.9;
+if (square) {
+  add('badge', {left:'400px', top:'150px', width:'400px', height:'400px'});
+  add('disc', {left:'440px', top:'190px', width:'320px', height:'320px'}, '<svg viewBox="0 0 24 24" fill="none" stroke="#f7f3e9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d.i + '</svg>');
+  add('name', {left:'0', right:'0', top:'610px', textAlign:'center', font:'bold 104px/1.05 Arial,Helvetica,sans-serif'}, d.name.split('|').map(esc).join('<br>'));
+  const t = add('tier', {left:'50%', top:'860px', transform:'translateX(-50%)', font:'bold 46px/1 Arial,Helvetica,sans-serif', padding:'22px 48px'}, esc(d.tier));
+  add('tag', {left:'0', right:'0', top:'975px', textAlign:'center', font:'38px/1.3 Arial,Helvetica,sans-serif'}, esc(d.tag));
+  add('brand', {left:'0', right:'0', top:'1110px', textAlign:'center', font:'bold 26px/1 Arial,Helvetica,sans-serif'}, 'HDWEBMOBILE.COM');
+} else {
+  add('badge', {left:'80px', top:'175px', width:'280px', height:'280px'});
+  add('disc', {left:'108px', top:'203px', width:'224px', height:'224px'}, '<svg viewBox="0 0 24 24" fill="none" stroke="#f7f3e9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d.i + '</svg>');
+  add('brand', {left:'420px', top:'120px', font:'bold 24px/1 Arial,Helvetica,sans-serif'}, esc(d.name.replace('|',' ')) + ' &middot; HDWEBMOBILE');
+  add('head', {left:'420px', right:'70px', top:'170px', font:'bold 66px/1.08 Arial,Helvetica,sans-serif'}, esc(d.head));
+  add('tag', {left:'420px', right:'70px', top:'420px', font:'30px/1.35 Arial,Helvetica,sans-serif'}, esc(d.tag));
+  add('tier', {left:'420px', top:'520px', font:'bold 26px/1 Arial,Helvetica,sans-serif', padding:'14px 28px'}, esc(d.tier));
+}
+</script></body></html>
