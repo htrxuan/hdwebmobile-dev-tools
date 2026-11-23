@@ -10,7 +10,7 @@ hdwebmobile-order-export published 2026-10-28
 hdwebmobile-otp-login published 2026-11-12
 hdwebmobile-delivery-zones published 2026-11-16
 hdwebmobile-coupon-links published 2026-11-20
-hdwebmobile-product-specifications in-review 2026-11-20
+hdwebmobile-product-specifications published 2026-11-23
 hdwebmobile-photo-video-reviews queued
 hdwebmobile-product-enquiry queued
 hdwebmobile-product-file-upload queued
