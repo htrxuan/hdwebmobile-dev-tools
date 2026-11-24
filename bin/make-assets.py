@@ -14,7 +14,7 @@ Screenshots are NOT generated here -- they are real wp-admin/storefront captures
 Usage:
   make-assets.py --slug hdwebmobile-foo --title "LOYALTY POINTS &|STORE CREDIT." \
       --tagline "Points customers earn and redeem. Balance computed from a ledger." --glyph star
-  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield, key, pin, list, camera)
+  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield, key, pin, list, camera, chat)
 """
 import argparse, math, os, sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -139,6 +139,12 @@ def draw_glyph(d, name, cx, cy, r, fill=(255, 255, 255), cut=DARK):
         d.rounded_rectangle((cx - r * .38, cy - r * .85, cx + r * .38, cy - r * .4), radius=r * .1, fill=fill)
         d.ellipse((cx - r * .5, cy - r * .3, cx + r * .5, cy + r * .7), fill=cut)
         d.ellipse((cx - r * .3, cy - r * .1, cx + r * .3, cy + r * .5), fill=fill)
+    elif name == 'chat':
+        # speech bubble with a tail and three dots
+        d.rounded_rectangle((cx - r, cy - r * .75, cx + r, cy + r * .5), radius=r * .35, fill=fill)
+        d.polygon([(cx - r * .55, cy + r * .4), (cx - r * .15, cy + r * .4), (cx - r * .7, cy + r * .95)], fill=fill)
+        for dx in (-.48, 0, .48):
+            d.ellipse((cx + r * dx - r * .13, cy - r * .25, cx + r * dx + r * .13, cy + r * .01), fill=cut)
     elif name == 'shield':
         d.polygon([(cx, cy - r), (cx + r * .8, cy - r * .65), (cx + r * .7, cy + r * .3), (cx, cy + r), (cx - r * .7, cy + r * .3), (cx - r * .8, cy - r * .65)], fill=fill)
     else:
