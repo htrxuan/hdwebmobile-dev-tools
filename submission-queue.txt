@@ -12,7 +12,7 @@ hdwebmobile-delivery-zones published 2026-11-16
 hdwebmobile-coupon-links published 2026-11-20
 hdwebmobile-product-specifications published 2026-11-23
 hdwebmobile-photo-video-reviews published 2026-11-25
-hdwebmobile-product-enquiry ready
+hdwebmobile-product-enquiry in-review 2026-11-25
 hdwebmobile-product-file-upload queued
 hdwebmobile-request-a-quote queued
 hdwebmobile-simple-subscriptions queued
