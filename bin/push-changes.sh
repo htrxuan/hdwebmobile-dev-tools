@@ -6,7 +6,7 @@
 # first `git init`'d. A hardcoded branch name silently fails on the other kind with
 # "src refspec ... does not match any" -- this bit a real batch push in this project before).
 #
-# Every commit gets the standing attribution trailer appended automatically.
+# Commits carry no Claude attribution trailer (the user wants Claude off the GitHub contributor list).
 #
 # Usage:
 #   push-changes.sh "<commit message>" [<slug> ...]        # add -A, commit, push
@@ -31,7 +31,6 @@ DEV_TOOLS_DIR="$(dirname "$SCRIPT_DIR")"
 DEV_PLUGINS_DIR="$(dirname "$DEV_TOOLS_DIR")"
 PLUGINS_DIR="$DEV_PLUGINS_DIR/wp-content/plugins"
 
-TRAILER="Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 
 DRY_RUN=0
 ONLY_PATH=""
@@ -101,7 +100,7 @@ for slug in "${SLUGS[@]}"; do
     else
         git add -A
     fi
-    git -c user.name=htrxuan -c user.email=htrxuan@gmail.com commit -q -m "$(printf '%s\n\n%s' "$MSG" "$TRAILER")"
+    git -c user.name=htrxuan -c user.email=htrxuan@gmail.com commit -q -m "$MSG"
     if git push -q origin "$branch" 2>/tmp/hdwebmobile-push-err.$$; then
         echo "✓ pushed $slug [$branch]"
         PUSHED=$((PUSHED + 1))
