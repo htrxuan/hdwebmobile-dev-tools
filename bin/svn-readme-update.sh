@@ -46,6 +46,8 @@ for slug in "${SLUGS[@]}"; do
     DEV_STABLE=$(grep -m1 -E '^Stable tag:' "$SRC" | sed 's/Stable tag:[[:space:]]*//' | tr -d ' \r')
     if [ "$DEV_STABLE" != "$STABLE" ]; then echo "✗ $slug: dev Stable tag $DEV_STABLE != SVN $STABLE (needs a real release, use svn-release.sh)"; FAIL=$((FAIL+1)); continue; fi
 
+    # Compare against what is actually in SVN, not against a copy left by an earlier dry run.
+    svn revert -q "$WC/trunk/readme.txt" "$WC/tags/$STABLE/readme.txt"
     CHANGED=0
     for t in "trunk" "tags/$STABLE"; do
         if ! cmp -s "$SRC" "$WC/$t/readme.txt"; then
@@ -67,7 +69,8 @@ for slug in "${SLUGS[@]}"; do
             && { echo "✓ $slug: committed trunk + tags/$STABLE (tested up to $TESTED)"; OK=$((OK+1)); } \
             || { echo "✗ $slug: commit failed"; FAIL=$((FAIL+1)); }
     else
-        echo "~ $slug: trunk + tags/$STABLE readme ready (tested up to $TESTED)"; OK=$((OK+1))
+        echo "~ $slug: trunk + tags/$STABLE readme would change (tested up to $TESTED)"; OK=$((OK+1))
+        svn revert -q "$WC/trunk/readme.txt" "$WC/tags/$STABLE/readme.txt"
     fi
 done
 
