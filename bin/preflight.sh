@@ -7,7 +7,7 @@
 #   2. Every translation call uses that same text domain           (Delivery Date rejection)
 #   3. Version header == readme Stable tag; Tested up to is current
 #   4. Readme short description <= 150 chars
-#   5. Readme names no other plugins / CVE ids                     (Wishlist pre-review flag)
+#   5. Readme + header Description name no other plugins / CVEs    (Wishlist, Product Enquiry flags)
 #   6. Any remote call or external script => "== External services ==" section in readme
 #   7. Every admin_notices callback is screen-scoped               (Loyalty Points Guideline 11)
 #   8. No class_exists()/function_exists() guard around our OWN symbols (Shipment Tracking rejection)
@@ -57,7 +57,7 @@ BAD_TD=$(grep -rhoE "(__|_e|_x|_ex|_n|_nx|esc_html__|esc_html_e|esc_html_x|esc_a
 STABLE=$(grep -m1 -i '^Stable tag:' "$README" | sed 's/.*: *//' | tr -d '\r ')
 TESTED=$(grep -m1 -i '^Tested up to:' "$README" | sed 's/.*: *//' | tr -d '\r ')
 [ "$STABLE" = "$VER" ] && pass "Stable tag = Version = $VER" || fail "Stable tag '$STABLE' != Version '$VER'"
-if [ -n "$WPVER" ] && printf '%s\n%s\n' "$WPVER" "$TESTED" | sort -V -C; then
+if [ -n "$WPVER" ] && printf '%s\n%s\n' "${WPVER%%-*}" "$TESTED" | sort -V -C; then
   pass "Tested up to $TESTED (WordPress is $WPVER)"
 else
   fail "Tested up to '$TESTED' is older than current WordPress $WPVER"
@@ -68,8 +68,8 @@ LEN=${#SHORT}
 [ "$LEN" -gt 0 ] && [ "$LEN" -le 150 ] && pass "short description $LEN chars" || fail "short description is $LEN chars (must be 1-150)"
 
 # --- 5: readme wording ---
-HITS=$(grep -nE "CVE-[0-9]|[Cc]ompeting|[Cc]ompetitor|unlike (other|most)" "$README" | cut -c1-90)
-[ -z "$HITS" ] && pass "readme names no other plugins / CVEs" || fail "readme comparative/CVE wording:"$'\n'"$(sed 's/^/          /' <<<"$HITS")"
+HITS=$( { grep -nE "CVE-[0-9]|[Cc]ompeting|[Cc]ompetitor|unlike (other|most)" "$README"; grep -HnE "^[[:space:]/*#]*Description:.*(CVE-[0-9]|[Cc]ompeting|[Cc]ompetitor|unlike (other|most))" "$MAIN"; } | cut -c1-90)
+[ -z "$HITS" ] && pass "readme + header Description name no other plugins / CVEs" || fail "readme comparative/CVE wording:"$'\n'"$(sed 's/^/          /' <<<"$HITS")"
 
 # --- 6: external services disclosure ---
 EXT=$(grep -rlE "wp_remote_(get|post|request)|wp_safe_remote_|curl_init|wp_enqueue_script\([^)]*['\"]https?://" "$P" --include='*.php' | sed "s#$P/##")
