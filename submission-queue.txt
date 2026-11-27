@@ -41,3 +41,4 @@ hdwebmobile-product-comparison queued
 hdwebmobile-order-status-manager queued
 hdwebmobile-conditional-shipping-rules queued
 hdwebmobile-eu-compliance queued
+hdwebmobile-payment-gateway-fees queued
