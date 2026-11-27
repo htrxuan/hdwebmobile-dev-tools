@@ -14,7 +14,7 @@ hdwebmobile-product-specifications published 2026-11-23
 hdwebmobile-photo-video-reviews published 2026-11-25
 hdwebmobile-product-enquiry in-review 2026-11-25
 hdwebmobile-eu-compliance ready 2026-11-27
-hdwebmobile-conditional-shipping-rules queued
+hdwebmobile-conditional-shipping-rules ready 2026-11-27
 hdwebmobile-payment-gateway-fees queued
 hdwebmobile-order-status-manager queued
 hdwebmobile-product-labels queued
