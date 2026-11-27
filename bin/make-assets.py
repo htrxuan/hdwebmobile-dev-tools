@@ -14,7 +14,7 @@ Screenshots are NOT generated here -- they are real wp-admin/storefront captures
 Usage:
   make-assets.py --slug hdwebmobile-foo --title "LOYALTY POINTS &|STORE CREDIT." \
       --tagline "Points customers earn and redeem. Balance computed from a ledger." --glyph star
-  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield, key, pin, list, camera, chat)
+  (| splits title lines; glyphs: star, coin, gift, tag, doc, check, cart, clock, calendar, calculator, user, shield, key, pin, list, camera, chat, truck)
 """
 import argparse, math, os, sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -90,6 +90,14 @@ def draw_glyph(d, name, cx, cy, r, fill=(255, 255, 255), cut=DARK):
         d.polygon([(cx - r, cy - r * .7), (cx - r * .6, cy - r * .7), (cx - r * .35, cy + r * .35), (cx + r * .8, cy + r * .35), (cx + r, cy - r * .45), (cx - r * .5, cy - r * .45)], fill=fill)
         for wx in (-.25, .6):
             d.ellipse((cx + r * wx - r * .15, cy + r * .5, cx + r * wx + r * .15, cy + r * .8), fill=fill)
+    elif name == 'truck':
+        # Cargo box + cab with a window cut-out, two wheels with hub cut-outs.
+        d.rounded_rectangle((cx - r, cy - r * .55, cx + r * .25, cy + r * .4), radius=r * .06, fill=fill)
+        d.polygon([(cx + r * .32, cy - r * .3), (cx + r * .7, cy - r * .3), (cx + r, cy + r * .05), (cx + r, cy + r * .4), (cx + r * .32, cy + r * .4)], fill=fill)
+        d.polygon([(cx + r * .44, cy - r * .18), (cx + r * .66, cy - r * .18), (cx + r * .84, cy + r * .04), (cx + r * .44, cy + r * .04)], fill=cut)
+        for wx in (-.6, .62):
+            d.ellipse((cx + r * wx - r * .24, cy + r * .28, cx + r * wx + r * .24, cy + r * .76), fill=fill)
+            d.ellipse((cx + r * wx - r * .1, cy + r * .42, cx + r * wx + r * .1, cy + r * .62), fill=cut)
     elif name == 'clock':
         d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=fill)
         w = max(3, int(r * .12))
