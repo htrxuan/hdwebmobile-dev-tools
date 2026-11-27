@@ -10,7 +10,7 @@
 #
 # Example:
 #   new-plugin.sh hdwebmobile-foo-bar "HDWebmobile Foo Bar" HDFB hdfb \
-#     "Does foo bar things -- closed by construction against CVE-XXXX-YYYYY."
+#     "Does foo bar things for WooCommerce stores."
 #
 # What it does NOT do (deliberately -- these stay manual, reviewed steps):
 #   - write the actual feature code (repository/frontend/etc. classes)
@@ -182,7 +182,7 @@ cat <<EOF
 
 Done. Next steps (manual, on purpose):
   1. Write the real feature code (repository/frontend/admin classes) in $TARGET_DIR/includes/.
-  2. Fill in readme.txt / README.md's TODO sections (the CVE + closed-by-construction story).
+  2. Fill in readme.txt / README.md's TODO sections (Security by design: no competitor or CVE names).
   3. Adjust the tab 'order' in includes/class-${NS}-admin.php if $NEW_ORDER isn't where you want it.
   4. Copy dev-tools/templates/test-harness.php.tmpl to a scratch test-${NS}.php and write real cases.
   5. php -l every file, wp plugin activate $SLUG, wp plugin check $SLUG.

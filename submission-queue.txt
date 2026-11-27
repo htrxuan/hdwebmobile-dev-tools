@@ -38,3 +38,4 @@ hdwebmobile-order-bump queued
 hdwebmobile-order-quantity-rules queued
 hdwebmobile-post-purchase-upsell queued
 hdwebmobile-product-comparison queued
+hdwebmobile-order-status-manager queued
