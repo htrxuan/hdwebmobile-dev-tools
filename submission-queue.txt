@@ -19,6 +19,7 @@ hdwebmobile-payment-gateway-fees queued
 hdwebmobile-order-status-manager queued
 hdwebmobile-product-labels queued
 hdwebmobile-quick-reorder queued
+hdwebmobile-pdf-product-catalog queued
 hdwebmobile-product-file-upload queued
 hdwebmobile-request-a-quote queued
 hdwebmobile-simple-subscriptions queued
